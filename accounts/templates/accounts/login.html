@@ -1,0 +1,29 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<div class="form">
+    <div class="wrapper">
+        <div class="left">
+
+            <h2 style="color:Green;"><span><img src="{% static 'images/logo.png' %}" alt="" style="max-width: 50px;"></span>We are "FARMICO"</h2><h4>Bringing Happines</h4>
+            
+            <hr>
+            <p> Farmico is an Agtech startup that introduces technology to the farmers. It has also reimagined the food supply chain to reduce food wastage and eradicate food adulteration, malnutrition. Farmico provides fresh locally produced food to the consumers.Visit our website
+                <a href="https://www.farmicobd.com/">www.farmicobd.com</a>
+            </p>  <p>New Here? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+
+
+        <div class="right">
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label><br>
+                <input type="text" name="username" placeholder="xyz12"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" placeholder="Your password"><br>
+                <input type="submit" value="Log in"><br>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

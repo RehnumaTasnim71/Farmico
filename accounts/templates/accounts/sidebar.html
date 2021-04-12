@@ -1,0 +1,45 @@
+py{% load static %}
+<div class="sidebar" onclick="togglemenu()">
+    <div class="sidebar-brand">
+        <a href="{% url 'home' %}"><h1 style="color:Green;"><span><img src="{% static 'images/logo.png' %}" alt="" style="max-width: 40px;"></span>FARMICO</h1></a>
+    </div>
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a href="{% url 'home' %}"><span class="las la-igloo"></span>
+                    <span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="{% url 'all_product' %}"><span class="las la-shopping-bag"></span>
+                    <span>Products</span></a>
+            </li>
+            <li>
+                <a href="{% url 'all_customer' %}"><span class="las la-user-circle"></span>
+                    <span>Customers</span></a>
+            </li>
+            <br><br><br>
+            <li><a href="{% url 'profile' %}"><i class="las la-user-alt"></i>Profile</a></li>
+
+            <li><a href="{% url 'logout' %}"><i class="las la-arrow-alt-circle-right"></i> Logout</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-content">
+    <header>
+        <h1>
+            <div class="header-title">
+                <lable for="">
+                <span id="togglemenu" class="las la-bars">
+                </span>
+                </lable>
+            </div>
+        </h1>
+        <div class="user-wrapper">
+            <img src="{% get_media_prefix %}{{ user.profile.profile_pic }}" width="40px" height="40px" alt="profile">
+            <div class="user-info"><h4>{{ request.user }}</h4>
+                <small>{{ request.user.email }}</small>
+            </div>
+        </div>
+    </header>
+</div>
+

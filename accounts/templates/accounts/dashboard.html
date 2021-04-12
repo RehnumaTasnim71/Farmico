@@ -1,0 +1,76 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+    {% include 'accounts/sidebar.html' %}
+    <main>
+        {% include 'accounts/info.html' %}
+        <div class="card-body">
+            <div class="card-header">
+                <h2>ORDERS:</h2>
+                <div class="button-group">
+                    <a href="{% url 'add_order' %}">Add Order</a>
+                    <a href="{% url 'home' %}">Refresh</a>
+                    <a href="{% url 'export-csv' %}">Export Excel</a>
+                </div>
+            </div>
+            <table id="example" class="table is-striped" style="width:100%">
+                <thead>
+                <tr>
+                    <td style="background-color: #f8efc5;">#</td>
+                    <td style="background-color:#f85353;">Order ID</td>
+                    <td style="background-color:#faabab;">Date</td>
+                        <td style="background-color: #dcf1c0;">Status</td>
+                        <td style="background-color:#faea8f; ">Customer</td>
+                        <td style="background-color: #bcd39d;">Phone</td>
+                        <td style="background-color:#f0eca5;">Items</td>
+                        <td style="background-color: #bcd39d;">Coupon</td>
+                        <td style="background-color:#f3b5b5;">Amount</td>
+                        <td style="background-color:#f85353;">Shipping Address</td>
+                        <td style="background-color:#f0eca5;">Payment Status</td>
+                        <td style="background-color: #dcf1c0;">Action</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                     {% for order in orders %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ order.order }}</td>
+                        <td>{{ order.date_created }}</td>
+                        <td>{% if order.status == 'Shipped' %}
+                            <span class="status text-info">&bull;</span>
+                        {% endif %}
+                            {% if order.status == 'Cancelled' %}
+                                <span class="status text-danger">&bull;</span>
+                            {% endif %}
+                            {% if order.status == 'Pending' %}
+                                <span class="status text-warning">&bull;</span>
+                            {% endif %}
+                            {% if order.status == 'Delivered' %}
+                                <span class="status text-success">&bull;</span>
+                            {% endif %}
+                            {{ order.status }}
+                        </td>
+                        <td><a href="customer/{{ order.customer.id }}">{{ order.customer.name }}<br>
+                            <h6>{{ order.customer.email }}<br>{{ order.customer.address }}</h6></a></td>
+                        <td>{{ order.customer.phone }}</td>
+                        <td>{{ order.quantity }}X{{ order.product }}</td>
+                        <td>{{ order.coupon }}</td>
+                        <td>{{ order.product.price }}/-</td>
+                        <td>{{ order.shipping_address }}</td>
+                        <td>{% if order.payment == 'Paid' %}
+                            <span class="label label-success">{{ order.payment }}</span>
+                        {% endif %}
+                            {% if order.payment == 'Expired' %}
+                                <span class="label label-danger">{{ order.payment }}</span>
+                            {% endif %}
+                            {% if order.payment == 'Pending' %}
+                                <span class="label label-warning">{{ order.payment }}</span>
+                            {% endif %}</td>
+                           <td class="action"><a href="{% url 'update' order.id %}"><span class="las la-pen"></span></a><a href="{% url 'delete' order.id %}"><span class="las la-eraser"></span></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+</main>
+
+{% endblock %}

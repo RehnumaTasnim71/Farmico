@@ -1,0 +1,32 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+    <div class="form">
+        <div class="wrapper">
+            <div class="left">
+                <h2>Create New Account</h2>
+                <hr>
+                <p>
+                    Bringing Happiness
+                    <h2>HEY YOU, SIGN UP AND <br>
+                    CONNECT TO farmico!</h2>
+                    Join with us and bring to happy in your life
+                </p>
+                <p>Already User? <a href="{% url 'home' %}">Login</a></p>
+            </div>
+
+
+            <div class="right">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.username.label }}
+                    {{ form.username }}
+                    {{ form.password1.label }}
+                    {{ form.password1 }}
+                    {{ form.password2.label }}
+                    {{ form.password2 }}
+                    <input type="submit" value="Sign up">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
